@@ -1,7 +1,8 @@
-package "bzip2"
-node.set['build_essential']['compile_time'] = true
+%w(bzip2 asciidoc).each do |p|
+  package p
+end
 
-package "asciidoc"
+node.set['build_essential']['compile_time'] = true
 include_recipe "build-essential"
 
 ark "tinyproxy" do

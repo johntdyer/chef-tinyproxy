@@ -7,7 +7,7 @@
 # All rights reserved - Do Not Redistribute
 
 #package 'tinyproxy'
-include_recipe "tinyproxy::source"
+include_recipe "tinyproxy::_source"
 
 user "tinyproxy" do
   system true
