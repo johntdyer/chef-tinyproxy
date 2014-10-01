@@ -21,6 +21,16 @@ LogLevel <%= node[:tinyproxy][:logging][:level] %>
 
 PidFile "<%= node[:tinyproxy][:pid_file] %>"
 
+<% if node[:tinyproxy][:x_tinyproxy_header] -%>
+XTinyproxy Yes
+<% end -%>
+
+<% unless node[:tinyproxy][:match_urls].empty? -%>
+Filter "/etc/tinyproxy/filters"
+FilterDefaultDeny <%= node[:tinyproxy][:filter_deafult_deny] == true ? "Yes" : "No" %>
+FilterURLs <%= node[:tinyproxy][:filter_urls] == true ? "Yes" : "No" %>
+<% end -%>
+
 MaxClients 100
 MinSpareServers 5
 MaxSpareServers 20
@@ -33,6 +43,8 @@ Allow <%= a %>
 
 ViaProxyName "tinyproxy"
 
-DisableViaHeader <%= node[:tinyproxy][:disableviaheader] %>
+<% if node[:tinyproxy][:disableviaheader] -%>
+DisableViaHeader Yes
+<% end -%>
 
 ConnectPort 443
