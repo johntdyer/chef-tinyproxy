@@ -13,6 +13,13 @@ user "tinyproxy" do
   system true
 end
 
+directory "/etc/tinyproxy" do
+  owner "tinyproy"
+  group "tinyproy"
+  mode "0755"
+  action :create
+end
+
 template '/etc/tinyproxy/tinyproxy.conf' do
   mode 0644
   notifies :restart, 'service[tinyproxy]'
