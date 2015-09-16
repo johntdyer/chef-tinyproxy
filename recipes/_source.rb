@@ -1,4 +1,4 @@
-%w(bzip2 asciidoc).each do |p|
+%w(bzip2 asciidoc libxslt-devel docbook-style-xsl).each do |p|
   package p
 end
 

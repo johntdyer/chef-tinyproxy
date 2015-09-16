@@ -13,11 +13,19 @@ user "tinyproxy" do
   system true
 end
 
-directory "/etc/tinyproxy" do
-  owner "tinyproy"
-  group "tinyproy"
-  mode "0755"
-  action :create
+%w(/var/run/tinyproxy/ /usr/local/var/log/tinyproxy /var/log/tinyproxy /etc/tinyproxy).each do |dir|
+  directory dir do
+    recursive true
+    owner "tinyproxy"
+    group "tinyproxy"
+    mode "0755"
+    action :create
+  end
+end
+
+template '/etc/init.d/tinyproxy' do
+  mode 0744
+  notifies :restart, 'service[tinyproxy]'
 end
 
 template '/etc/tinyproxy/tinyproxy.conf' do
@@ -31,5 +39,5 @@ template '/etc/tinyproxy/filters' do
 end
 
 service 'tinyproxy' do
-  action [:start, :enable]
+  action [:enable,:start]
 end
