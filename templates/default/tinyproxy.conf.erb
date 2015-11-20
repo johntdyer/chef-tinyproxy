@@ -25,6 +25,16 @@ PidFile "<%= node[:tinyproxy][:pid_file] %>"
 XTinyproxy Yes
 <% end -%>
 
+<% if node[:tinyproxy][:upstream] -%>
+Upstream <%= node[:tinyproxy][:upstream] %>
+<% unless node[:tinyproxy][:no_upstream].empty? -%>
+
+<% node[:tinyproxy][:no_upstream].each |up| -%>
+no upstream "<%=up%>"
+<% end -%>
+
+<% end -%>
+
 <% unless node[:tinyproxy][:match_urls].empty? -%>
 Filter "/etc/tinyproxy/filters"
 FilterDefaultDeny <%= node[:tinyproxy][:filter_deafult_deny] == true ? "Yes" : "No" %>
