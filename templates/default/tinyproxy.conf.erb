@@ -27,10 +27,9 @@ XTinyproxy Yes
 
 <% if node[:tinyproxy][:upstream] -%>
 Upstream <%= node[:tinyproxy][:upstream] %>
-<% unless node[:tinyproxy][:no_upstream].empty? -%>
 
-<% node[:tinyproxy][:no_upstream].each |up| -%>
-no upstream "<%=up%>"
+<% node[:tinyproxy][:no_upstream].each do |up| -%>
+no upstream "<%= up %>"
 <% end -%>
 
 <% end -%>
